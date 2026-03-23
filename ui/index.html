@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDR AntiCheat Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="panel" class="hidden">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-left">
+                <span class="shield">🛡</span>
+                <span class="title">SDR AntiCheat</span>
+                <span class="version">v2.0</span>
+            </div>
+            <button class="close-btn" onclick="closePanel()">✕</button>
+        </div>
+
+        <!-- Tab bar -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('players', this)">Players</button>
+            <button class="tab" onclick="switchTab('detections', this)">Detections</button>
+            <button class="tab" onclick="switchTab('bans', this)">Ban List</button>
+        </div>
+
+        <!-- PLAYERS TAB -->
+        <div id="tab-players" class="tab-content active">
+            <div class="search-bar">
+                <input type="text" id="player-search" placeholder="Search player..." oninput="filterPlayers()">
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Strikes</th>
+                            <th>HS%</th>
+                            <th>Fingerprint</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="players-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- DETECTIONS TAB -->
+        <div id="tab-detections" class="tab-content">
+            <div class="filter-bar">
+                <select id="det-filter" onchange="filterDetections()">
+                    <option value="">All Detections</option>
+                    <option value="AIMBOT">Aimbot</option>
+                    <option value="SPEEDHACK">Speed Hack</option>
+                    <option value="GODMODE">God Mode</option>
+                    <option value="TELEPORT">Teleport</option>
+                    <option value="MOD_MENU">Mod Menu</option>
+                    <option value="RESOURCE">Resource Injection</option>
+                    <option value="DAMAGE">Damage Hack</option>
+                </select>
+                <button class="btn-clear" onclick="clearDetections()">Clear Log</button>
+            </div>
+            <div id="detections-feed"></div>
+        </div>
+
+        <!-- BANS TAB -->
+        <div id="tab-bans" class="tab-content">
+            <div class="search-bar">
+                <input type="text" id="ban-search" placeholder="Search by name / license..." oninput="filterBans()">
+            </div>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Reason</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bans-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-box">
+            <p id="modal-text"></p>
+            <div class="modal-actions">
+                <button class="btn-danger" id="modal-confirm">Confirm</button>
+                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
